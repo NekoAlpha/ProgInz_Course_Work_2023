@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MD Izženierija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav a {
+            color: #fff;
+           	text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            float: left;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+	<header id="header">
+		<a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+	</header>
+
+	<div class="container">
+		<h2>Update TripCalendar</h2>
+		<form action="#" th:action="@{/tripCalendar/update/{idcal}(idcal=${updatedCalendar.idcal})}" th:object="${updatedCalendar}" method="post">
+			<div class="row">
+				<div class="col">
+					<label for="Day Name">Day Name:</label>
+					<input type="text" id="dayName" name="dayName" th:field="*{dayName}" required>
+					<span class="error-message" th:if="${#fields.hasErrors('dayName')}" th:errors="*{dayName}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label for="Date">Date:</label>
+					<input type="date" id="date" name="date" th:field="*{date}" required>
+					<span class="error-message" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label for="Departure time">Departure time:</label>
+					<input type="time" id="departureTime" name="departureTime" th:field="*{departureTime}" required>
+					<span class="error-message" th:if="${#fields.hasErrors('departureTime')}" th:errors="*{departureTime}"></span>
+				</div>
+			</div>
+			<div>
+                    <label for="Trip nr">Trip nr:</label>
+                    <input id="text" name="trip" th:field="*{trip}" required>
+                    	<span th:if="${#fields.hasErrors('trip')}" th:errors="*{trip}"></span>
+                        <!--<input th:each="pacinas : ${pacinas}" th:value="${pacinas}" th:text="${pacinas}"></input>-->
+                    </select>
+                </div>
+
+			<!--<div class="row">
+				<div class="col">
+					<label for="buscategory">Driver Buscategory:</label>
+					<select id="buscategory" name="buscategory" th:field="*{buscategory}" required>
+						<option th:each="buscategory : ${T(venta.lv.models.users.Buscategory).values()}"
+							th:value="${buscategory}" th:text="${buscategory}"></option>
+					</select>
+					<span class="error-message" th:if="${#fields.hasErrors('buscategory')}"
+						th:errors="*{buscategory}"></span>
+				</div>
+			</div>-->
+			<div class="row">
+				<div class="col">
+					<button type="submit" class="btn btn-primary">Confirm</button>
+				</div>
+			</div>
+		</form>
+	</div>
+    
+    <script>
+
+    </script>
+    
+</body>
+</html>

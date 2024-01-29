@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "certain-upgrade-410122",
+  "private_key_id": "bdeb609880b1f4fc3df1554c48affb2e860ac71e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCf/BNkQmodNSvm\niyczazTXDhppF02rRyL53wXjO4/5OdiqsJTxqEQQlJug9aRcp5VPuNUIo3qVO28W\nxJdkadR/St+4qVqPN7ly/X0CTCUgqtR1a0zbHFLtepx6r968OwKd03xBnmh8o0Nz\nYFPLD69/CqFY6jByWhMBDbJu7paOo3anNf04kFiPB9XJH6SogLbt/SCOr0AW2HYV\nK/EegP3AvTQOWLuxJzvnlvSQZfKF2qUqTkV4+Jw/RrCEcjOGoIVp339SISYTe3Gy\nsU4MFez3M7ot44Ij+pLMF2IOMFdBixNGJWhi9NSHtB83QPQe4rZm3+TtYagSH88u\nVFQnUC21AgMBAAECggEAIzvvg2GzIBqhQAV+jS77tK9I9sMommOw2soY8FoiU7e/\nNZxtOSmfT+2CtvjSiYto8WVaGaxzZ2FvDlseooFCSQSS8AbwSGFz6NTWDsb5WE/3\nOaL3irwasW2S/9wy2E7AvUSh9YuvJGAKj2L0IWEje/252iy9nbmjvNQo65CFPQV+\n+A1OSanpEjIGH5L0HYY3FT9BaUXr4Ec0lLldFFfwR1bt/euwJqOekCOYYHiPWKh/\nzbHGrmUvuRG7tctdxBX3dUsTXCz4LBmxwiHI2MbrYMR3LJCUvXoJBW4UG5kuYc9/\ncAl+TESCP0YQxqhTjl1bJEDOs5rgvFxCIZfzwBS7MQKBgQDTIEGpj41cZRTL8b4h\nXJQMdvweNzFkRr8GJKB6TGxwYGg+RZGdsdH1udGczKECksU+GPt0Y0QlJvQoTZ92\ndvZm2/4YcKrKJXjahDx/LETPVudjpm0u4rP83LVsTi0vumlVB4KFyRhY3zIWKF0s\nvik8Ug68+/Th7hTKthukRh0XuQKBgQDB/SDAMMNwlaBGMmvL9GFKWfIN8OFHLWae\nxi6d8ZbA/BBL0WK8cNVIqothLn/427fujbDHM9d1D0TIBVG41ztPR9sqLpDlR7J6\nKuiA9y4UNGsqRGMVpWuKLSg8XWaqXIWfNsoBh2RhRSkBjTmjM2jGjyoWdNealaVB\nHQcUrPvL3QKBgQCAyPdk4D1BtCMoeNEa9qcUp2wJXm+RlJonvCXsFDw9nIFaIwO9\nZuAFfZEAjc5VjIQm6gRRLdA+vXFIOHliQRTzD5UDAY8c+hirauigRre+pmtFXRrS\n89UJFPTSGSn1KEfiZ09WHqHsbFHYNE0J4wGyWvfEjgkF3D3wnX9lCKPseQKBgQCj\ncFEXm/4N7QKMIg8QV2Vg70cw17H19hpvyymbiOAq2DQirNczTR1li8rCphrL4NKm\n+lnme5cb2TFqFJE12qDtuuy8LV+GzVFh/KTHg3ofK8reYZ/ZrPVeBY3QziChiDJM\nYizv/NJl4Y8a75GQHtA3+obLRMYiR9JjecFtehDrQQKBgD2w+QoSFZwRnEA6BgoB\nHS+VGv2yN/tMW/Ai+fAugbNpE9U5Im4mRoOF8iTMrzIJQVmUMVOfWvyxaPsGKVG8\nnaBGh1XOOZCWUMDMFjpogQYTE8c56WRkFfIOxNdA+w+4BFUyKT3LBe2AP6rnW1ZO\nU9LnqNdb16c/dASQQflybcZk\n-----END PRIVATE KEY-----\n",
+  "client_email": "translationspring@certain-upgrade-410122.iam.gserviceaccount.com",
+  "client_id": "112631085402855855933",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/translationspring%40certain-upgrade-410122.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

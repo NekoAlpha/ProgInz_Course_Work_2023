@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trip</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        .nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav a {
+            color: #fff;
+           	text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            float: left;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <div class="nav">
+        <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+        <div class="container">
+            <h2>Vadības informācija</h2>
+            <div>
+                <label>ID:</label>
+                <span th:text="${Trip.idtr}"></span>
+            </div>
+            <div>
+                <label>Date:</label>
+                <span th:text="${Trip.date}"></span>
+            </div>
+            <div>
+                <label>Duration Hours:</label>
+                <span th:text="${Trip.durationHours}"></span>
+            </div>
+            <div>
+                <label>Driver:</label>
+                <span th:text="${Trip.driver.idd}"></span>
+            </div>
+            <div>
+                <label>Cities:</label>
+                <li th:each="tc : ${Trip.cities}">
+					<span th:text="${tc.getTitle()}"></span>
+				
+				</li>
+            </div>
+
+            <form th:action="@{/trip/delete/{idtr}(idtr=${Trip.idtr})}" method="GET">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+            
+        </div>
+    </div>
+
+</body>
+</html>

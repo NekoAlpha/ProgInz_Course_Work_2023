@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav a {
+            color: #fff;
+           	text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            float: left;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+	<header id="header">
+		<nav class="navbar bg-dark navbar-expand-md mb-3" data-bs-theme="dark">
+	<!-- Navigation bar -->
+    <div class="nav">
+         <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+        
+        
+        <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
+	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
+		</button>
+		<button id="translateToLatvianButton" style="display: flex; align-items: center; font-size: 24px;">
+	    	<img src="https://em-content.zobj.net/source/twitter/348/flag-latvia_1f1f1-1f1fb.png" alt="LV" style="width: 1em; height: 1em;">
+		</button>
+    </div>
+		</nav>
+	</header>
+
+	<div class="content-container">
+		<div class="content">
+			<h1 data-translation="Sveiks/a!">Sveiks/a!</h1>
+			<p data-translation="Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.">Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.</p>
+		</div>
+	</div>
+	
+	<script>
+	    document.addEventListener("DOMContentLoaded", function() {
+		    var translateToEnglishButton = document.getElementById("translateToEnglishButton");
+		    translateToEnglishButton.addEventListener("click", function() {
+		        translatePageToEnglish();
+		    });
+		    var translateToLatvianButton = document.getElementById("translateToLatvianButton");
+		    translateToLatvianButton.addEventListener("click", function() {
+		        translatePageToLatvian();
+		    });
+		});
+		
+		function translatePageToEnglish() {
+		    const elementsToTranslate = document.querySelectorAll("[data-translation]");
+		
+		    elementsToTranslate.forEach(element => {
+		        const textToTranslate = element.getAttribute("data-translation");
+		        const translatedText = translateToEnglish(textToTranslate);
+		        element.innerText = translatedText;
+		    });
+		}
+		
+		function translatePageToLatvian() {
+		    const elementsToTranslate = document.querySelectorAll("[data-translation]");
+		
+		    elementsToTranslate.forEach(element => {
+		        const textToTranslate = element.getAttribute("data-translation");
+		        const translatedText = translateToLatvian(textToTranslate);
+		        element.innerText = translatedText;
+		    });
+		}
+		
+		function translateToEnglish(text) {
+		    const englishTranslations = {
+		        "Sākumlapa": "Home",
+		        "Šoferi": "Drivers",
+		        "Biļetes": "Tickets",
+		        "Maršruti": "Routes",
+		        "Maršruta Kalendārs": "Route Calendar",
+		        "Atjaunot": "Update",
+		        "Pirmā": "First",
+		        "Ieprieķšējā": "Previous",
+		        "Nākamā": "Next",
+		        "Pēdējā": "Last",
+		        "Sveiks/a!": "Hello!",
+		        "Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.": "Click on the navigation bar buttons to see the data! The buttons are at the top.",
+		    };
+		
+		    return englishTranslations[text] || text;
+		}
+		
+		function translateToLatvian(text) {
+		    const latvianTranslations = {
+		        "Home": "Sākumlapa",
+		        "Drivers": "Šoferi",
+		        "Tickets": "Biļetes",
+		        "Routes": "Maršruti",
+		        "Route Calendar": "Maršruta Kalendārs",
+		        "Update": "Atjaunot",
+		        "First": "Pirmā",
+		        "Previous": "Ieprieķšējā",
+		        "Next": "Nākamā",
+		        "Last": "Pēdējā",	
+		        "Hello!": "Sveiks/a!",
+		        "Click on the navigation bar buttons to see the data! The buttons are at the top.": "Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.",	     
+		    };
+		
+		    return latvianTranslations[text] || text;
+		}
+
+	</script>
+
+</body>
+
+</html>

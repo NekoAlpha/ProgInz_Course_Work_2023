@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MD Izženierija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        table {
+			text-align: center;
+		}
+
+        .nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav a {
+            color: #fff;
+           	text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            float: left;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+	
+<body>
+    <!-- Navigation bar -->
+    <div class="nav">
+        <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+        
+        <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
+	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
+		</button>
+		<button id="translateToLatvianButton" style="display: flex; align-items: center; font-size: 24px;">
+	    	<img src="https://em-content.zobj.net/source/twitter/348/flag-latvia_1f1f1-1f1fb.png" alt="LV" style="width: 1em; height: 1em;">
+		</button>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+		
+<div class="container" th:if="${not #lists.isEmpty(tripCalendar)}">
+    <table>
+        <tr>
+            <th data-translation="ID">ID</th>
+            <th data-translation="Diena">Diena</th>
+            <th data-translation="Datums">Datums</th>
+            <th data-translation="Attiešanas laiks">Attiešanas laiks</th>
+            <th data-translation="Maršruta ID">Maršruta ID</th>
+            <th data-translation="Funkcijas">Funkcijas</th>
+        </tr>
+
+        <tr th:each="tripCalendar : ${tripCalendar.content}">
+            <td th:text="${tripCalendar.idcal}"></td>
+            <td th:text="${tripCalendar.dayName}"></td>
+            <td th:text="${tripCalendar.date}"></td>
+            <td th:text="${tripCalendar.departureTime}"></td>
+            <td th:text="${tripCalendar.Trip.idtr}"></td>
+            <td>
+				<!--<p th:text="${tripCalendar.idcal}"></p>-->
+                <!--<a th:href="@{/driver/showOne/{idd}(idd=${driver.idd})}" data-translation="Apskatīties">Apskatīties</a>-->
+               <a th:if="${tripCalendar.idcal != null}" th:href="@{/tripCalendar/update/{idcal}(idcal=${tripCalendar.idcal})}" data-translation="Atjaunot">Atjaunot</a>
+
+
+
+            </td>
+        </tr>
+    </table>
+
+    <!--<div th:if="${tripCalendars.totalPages > 1}">-->
+    <div class="pagination">
+    <ul>
+        <li class="page-item" th:class="${tripCalendar.first ? 'disabled' : ''}">
+            <a class="page-link" th:href="@{/tripCalendar/showAll(page=0)}" data-translation="Pirmā">Pirmā</a>
+        </li>
+        <li class="page-item" th:class="${tripCalendar.hasPrevious ? '' : 'disabled'}">
+            <a class="page-link" th:href="@{/tripCalendar/showAll(page=${tripCalendar.number - 1})}" data-translation="Iepriekšējā">Iepriekšējā</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(0, tripCalendar.totalPages - 1)}"
+            th:class="${tripCalendar.number == pageNumber ? 'active' : ''}">
+            <a class="page-link" th:href="@{/tripCalendar/showAll(page=${pageNumber})}" th:text="${pageNumber + 1}"></a>
+        </li>
+        
+        <a class="page-item" th:class="${tripCalendar.last ? 'disabled' : ''}">
+            <a class="page-link" th:href="@{/tripCalendar/showAll(page=${tripCalendar.totalPages - 1})}" data-translation="Pēdējā">Pēdējā</a>
+        </a>
+        
+        <a class="page-item" th:class="${tripCalendar.hasNext ? '' : 'disabled'}">
+            <a class="page-link" th:href="@{/tripCalendar/showAll(page=${tripCalendar.number + 1})}" data-translation="Nākamā">Nākamā</a>
+        </a>
+        
+    </ul>
+</div>
+
+
+
+	
+    <!--<a class="btn" th:href="@{/driver/addNew}" data-translation="Pievienot Jaunu šoferi">Pievienot Jaunu šoferi</a>-->
+</div>
+
+
+    </div>
+    
+    
+    
+    <script>
+	    document.addEventListener("DOMContentLoaded", function() {
+		    var translateToEnglishButton = document.getElementById("translateToEnglishButton");
+		    translateToEnglishButton.addEventListener("click", function() {
+		        translatePageToEnglish();
+		    });
+		    var translateToLatvianButton = document.getElementById("translateToLatvianButton");
+		    translateToLatvianButton.addEventListener("click", function() {
+		        translatePageToLatvian();
+		    });
+		});
+		
+		function translatePageToEnglish() {
+		    const elementsToTranslate = document.querySelectorAll("[data-translation]");
+		
+		    elementsToTranslate.forEach(element => {
+		        const textToTranslate = element.getAttribute("data-translation");
+		        const translatedText = translateToEnglish(textToTranslate);
+		        element.innerText = translatedText;
+		    });
+		}
+		
+		function translatePageToLatvian() {
+		    const elementsToTranslate = document.querySelectorAll("[data-translation]");
+		
+		    elementsToTranslate.forEach(element => {
+		        const textToTranslate = element.getAttribute("data-translation");
+		        const translatedText = translateToLatvian(textToTranslate);
+		        element.innerText = translatedText;
+		    });
+		}
+		
+		function translateToEnglish(text) {
+		    const englishTranslations = {
+		        "Sākumlapa": "Home",
+		        "Šoferi": "Drivers",
+		        "Biļetes": "Tickets",
+		        "Maršruti": "Routes",
+		        "Maršruta Kalendārs": "Route Calendar",
+		        "Atjaunot": "Update",
+		        "Pirmā": "First",
+		        "Iepriekšējā": "Previous",
+		        "Nākamā": "Next",
+		        "Pēdējā": "Last",
+		        "ID": "ID",
+		        "Diena": "Day",
+		        "Datums": "Date",
+		        "Attiešanas laiks": "Departure time",
+		        "Maršruta ID": "Trip ID",
+		        "Funkcijas": "Functions",
+		        "Apskatīties": "Take a look",
+		    };
+		
+		    return englishTranslations[text] || text;
+		}
+		
+		function translateToLatvian(text) {
+		    const latvianTranslations = {
+		        "Home": "Sākumlapa",
+		        "Drivers": "Šoferi",
+		        "Tickets": "Biļetes",
+		        "Routes": "Maršruti",
+		        "Route Calendar": "Maršruta Kalendārs",
+		        "Update": "Atjaunot",
+		        "First": "Pirmā",
+		        "Previous": "Iepriekšējā",
+		        "Next": "Nākamā",
+		        "Last": "Pēdējā",
+		        "ID": "ID",
+		        "Day": "Diena",	 
+		        "Date": "Datums", 
+		        "Departure time": "Departure time",  
+		        "Trip ID": "Maršruta ID", 
+		        "Functions": "Funkcijas",
+		        "Take a look": "Apskatīties",
+		    };
+		
+		    return latvianTranslations[text] || text;
+		}
+
+	</script>
+
+    
+</body>
+</html>

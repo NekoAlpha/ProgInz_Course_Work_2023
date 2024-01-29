@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MD Izženierija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+	
+<body>
+    <!-- Navigation bar -->
+    <div class="nav">
+       <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+        
+        <div class="container">
+            <form action="/ticket/addNew" method="POST" th:object="${ticket}">
+                <div>
+                    <label for="PurchasedDateTime">PurchasedDateTime:</label>
+                    <input type="text" id="purchaseDateTime" name="purchaseDateTime" th:field="*{purchaseDateTime}" required>
+                    <span th:if="${#fields.hasErrors('purchaseDateTime')}" th:errors="*{purchaseDateTime}"></span>
+                </div>
+                
+                <div>
+                    <label for="Price">Price:</label>
+                    <input type="float" id="price" name="price" th:field="*{price}" required>
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                </div>
+                
+                <div>
+				    <label for="IsChild">Is Child:</label>
+				    <input type="checkbox" id="isChild" name="isChild" th:field="*{isChild}">
+				    <span th:if="${#fields.hasErrors('isChild')}" th:errors="*{isChild}"></span>
+				</div>
+                
+		        <!--<div class="row">
+					<div class="col">
+						<label for="IsChild">Is Child?:</label>
+						<select id="isChild" name="isChild" th:field="*{isChild}" required>
+							<option th:each="isChild : ${T(venta.lv.models.users.Ticket).values()}"
+								th:value="${isChild}" th:text="${isChild}"></option>
+						</select>
+						<span class="error-message" th:if="${#fields.hasErrors('isChild')}"
+							th:errors="*{isChild}"></span>
+					</div>
+				</div>-->
+				
+				<!--<div class="row">
+					<div class="col">
+						<label for="Cashier">Cashier:</label>
+						<select id="cashier" name="cashier" th:field="*{cashier}" required>
+							<option th:each="cashier : ${T(venta.lv.models.users.Cashier).values()}"
+								th:value="${cashier}" th:text="${cashier}"></option>
+						</select>
+						<span class="error-message" th:if="${#fields.hasErrors('cashier')}"
+							th:errors="*{cashier}"></span>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						<label for="Trip">Trip:</label>
+						<select id="trip" name="trip" th:field="*{trip}" required>
+							<option th:each="trip : ${T(venta.lv.models.Trip).values()}"
+								th:value="${trip}" th:text="${trip}"></option>
+						</select>
+						<span class="error-message" th:if="${#fields.hasErrors('trip')}"
+							th:errors="*{trip}"></span>
+					</div>
+				</div>-->
+                
+                <button type="submit" class="btn">Create</button>
+            </form>
+        </div>
+        
+        
+
+
+    </div>
+
+
+    
+    <script>
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MD Izženierija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+	
+<body>
+    <!-- Navigation bar -->
+    <div class="nav">
+        <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+        
+        <div class="container">
+            <form action="#" th:action="@{/driver/addNew}" th:object="${driver}" method="post">
+			    <div>
+			        <label for="name">Name:</label>
+			        <input type="text" id="name" name="name" th:field="${driver.name}" required>
+			        <span th:if="${#fields.hasErrors('name')}" th:errors="${driver.name}"></span>
+			    </div>
+			
+			    <div>
+			        <label for="surname">Surname:</label>
+			        <input type="text" id="surname" name="surname" th:field="${driver.surname}" required>
+			        <span th:if="${#fields.hasErrors('surname')}" th:errors="${driver.surname}"></span>
+			    </div>
+			
+			    <div class="row">
+			        <div class="col">
+			            <label for="buscategory">Driver Buscategory:</label>
+			            <select id="buscategory" name="buscategory" th:field="${driver.buscategory}" required>
+			                <option th:each="buscategory : ${T(venta.lv.models.users.Buscategory).values()}"
+			                    th:value="${buscategory}" th:text="${buscategory}"></option>
+			            </select>
+			            <span class="error-message" th:if="${#fields.hasErrors('buscategory')}"
+			                th:errors="${driver.buscategory}"></span>
+			        </div>
+			    </div>
+			
+			    <input type="hidden" name="page" th:value="${page}">
+			
+			    <button type="submit" class="btn">Create</button>
+			</form>
+
+
+        </div>
+        
+        
+
+
+    </div>
+
+
+    
+    <script>
+
+    </script>
+    
+</body>
+</html>
