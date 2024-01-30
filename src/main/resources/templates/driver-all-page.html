@@ -80,6 +80,9 @@
 	    	<img src="https://em-content.zobj.net/source/twitter/348/flag-latvia_1f1f1-1f1fb.png" alt="LV" style="width: 1em; height: 1em;">
 		</button>
     </div>
+    <input type="color" id="colorPicker" class="color-input">
+    <input type="file" id="imageUploader" accept="image/*" class="image-input">
+    <button id="removeImageBtn">Remove Image</button>
     
     <!-- Main content -->
     <div class="content">
@@ -264,6 +267,55 @@
 		    
 		    document.body.removeChild(link);
 		}
+		
+		 document.addEventListener("DOMContentLoaded", function() {
+            function handleColorChange() {
+                const colorPicker = document.getElementById('colorPicker');
+                const selectedColor = colorPicker.value;
+
+                document.body.style.backgroundColor = selectedColor;
+
+                localStorage.setItem('background-color', selectedColor);
+            }
+
+            function handleImageUpload() {
+                const imageUploader = document.getElementById('imageUploader');
+                const selectedImage = imageUploader.files[0];
+
+                if (selectedImage) {
+                    const imageUrl = URL.createObjectURL(selectedImage);
+                    document.body.style.backgroundImage = `url('${imageUrl}')`;
+
+                    localStorage.setItem('background-image', imageUrl);
+                }
+            }
+
+            function removeImage() {
+                document.body.style.backgroundImage = 'none';
+
+                localStorage.removeItem('background-image');
+            }
+     
+            const colorPicker = document.getElementById('colorPicker');
+            colorPicker.addEventListener('input', handleColorChange);
+
+            const imageUploader = document.getElementById('imageUploader');
+            imageUploader.addEventListener('change', handleImageUpload);
+
+            const removeImageBtn = document.getElementById('removeImageBtn');
+            removeImageBtn.addEventListener('click', removeImage);
+
+            const storedColor = localStorage.getItem('background-color');
+            const storedImage = localStorage.getItem('background-image');
+
+            if (storedColor) {
+                document.body.style.backgroundColor = storedColor;
+            }
+
+            if (storedImage) {
+                document.body.style.backgroundImage = `url('${storedImage}')`;
+            }
+        });
 			
 	</script>
 
