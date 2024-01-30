@@ -83,6 +83,7 @@ public class SecurityConfig {
 		.requestMatchers("/ticket/showAll").permitAll()
 		.requestMatchers("/trip/showAll").permitAll()
 		.requestMatchers("/tripCalendar/showAll").permitAll()
+		.requestMatchers("/driverRatings/showAll").permitAll()
 		.requestMatchers("/driver/addNew").hasAnyAuthority("ADMIN")
 		.requestMatchers("/ticket/addNew").hasAnyAuthority("ADMIN")
 		.requestMatchers("/trip/addNew").hasAnyAuthority("ADMIN")

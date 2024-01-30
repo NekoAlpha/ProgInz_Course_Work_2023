@@ -15,6 +15,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import venta.lv.models.City;
+import venta.lv.models.DriverRatings;
 import venta.lv.models.Translate;
 import venta.lv.models.Trip;
 import venta.lv.models.TripCalendar;
@@ -26,6 +27,7 @@ import venta.lv.models.users.Driver;
 import venta.lv.models.users.Person;
 import venta.lv.models.users.Ticket;
 import venta.lv.repos.ICityRepo;
+import venta.lv.repos.IDriverRatings;
 import venta.lv.repos.ITripCalendar;
 import venta.lv.repos.ITripRepo;
 import venta.lv.repos.security.IMyAuthorityRepo;
@@ -50,7 +52,7 @@ public class ProgInzMd12023Application {
 	public CommandLineRunner testModelLayer(
 			ICityRepo cityRepo, ITripRepo tripRepo, ICasheirRepo casheirRepo, 
 			IDriverRepo driverRepo, ITicketRepo ticketRepo, IMyUserRepo userRepo, 
-			IMyAuthorityRepo authorityRepo, ITripCalendar tripCalendarRepo) {
+			IMyAuthorityRepo authorityRepo, ITripCalendar tripCalendarRepo, IDriverRatings driverRatingsRepo) {
 		return new CommandLineRunner() {
 			
 			@Override
@@ -164,7 +166,11 @@ public class ProgInzMd12023Application {
 				tripCalendarRepo.save(cal2);
 				tripCalendarRepo.save(cal3);
 				tripCalendarRepo.save(cal4);
-//				
+				
+				DriverRatings r1 = new DriverRatings(d1, 8, "Šoveris bija ļoti laipns un visus pasveicināja");
+				driverRatingsRepo.save(r1);
+				
+				
 //				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", 
 //						"121212-12121", us1, Degree.mg);
 //				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", 

@@ -71,6 +71,7 @@
         <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
         <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
         <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+        <a href="/driverRatings/showAll" data-translation="Šofera Novērtējums">Šofera Novērtējums</a>
         
         <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
 	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
@@ -135,12 +136,14 @@
         
     </ul>
 </div>
+<button id="downloadButton">Lejuplādēt informāciju</button>
 
 
 
 	
     <!--<a class="btn" th:href="@{/driver/addNew}" data-translation="Pievienot Jaunu šoferi">Pievienot Jaunu šoferi</a>-->
 </div>
+
 
 
     </div>
@@ -226,7 +229,51 @@
 		
 		    return latvianTranslations[text] || text;
 		}
-
+		
+		 document.addEventListener("DOMContentLoaded", function () {
+		    var downloadButton = document.getElementById("downloadButton");
+		    if (downloadButton) {
+		        downloadButton.addEventListener("click", function () {
+		            downloadTableData();
+		        });
+		    }
+		});
+		
+		function downloadTableData() {
+		    
+		    var tableRows = document.querySelectorAll("table tr");
+		    var pageData = Array.from(tableRows).map((row, rowIndex) => {
+		        var rowData = Array.from(row.querySelectorAll("td:not(:last-child)")).map(cell => cell.innerText);
+		        
+		       
+		        if (rowIndex === 0) {
+		            var headerRow = Array.from(row.querySelectorAll("th:not(:last-child)")).map(cell => cell.innerText);
+		            return headerRow.join('\t');
+		        }
+		
+		        return rowData.join('\t');
+		    }).join('\n');
+		
+		    
+		    var blob = new Blob([pageData], { type: "text/plain" });
+		
+		    
+		    var link = document.createElement("a");
+		    link.href = URL.createObjectURL(blob);
+		
+		   
+		    link.download = "page_data.txt";
+		
+		    
+		    document.body.appendChild(link);
+		
+		    
+		    link.click();
+		
+		    
+		    document.body.removeChild(link);
+		}
+				
 	</script>
 
     

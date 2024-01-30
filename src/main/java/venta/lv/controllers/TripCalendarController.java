@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
 import venta.lv.models.TripCalendar;
-import venta.lv.models.users.Driver;
 import venta.lv.services.impl.TripCalendarServiceImplWithDB;
 
 @Controller

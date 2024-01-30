@@ -24,6 +24,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import venta.lv.models.DriverRatings;
 import venta.lv.models.Trip;
 import venta.lv.models.users.Buscategory;
 import venta.lv.models.users.Driver;
@@ -63,6 +64,9 @@ public class Driver extends Person{
 	
 	@OneToMany(mappedBy = "driver")
 	private Collection<Trip> trips = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "driver")
+	private Collection<DriverRatings> driverRatings = new ArrayList<>();
 
 	public Driver(
 			@NotNull @Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅ]{1}[a-zēūīļķšāžčņ\\ ]+", message = "Pirmajam burtam jābūt lielajam") @Size(min = 3, max = 15) String name,
