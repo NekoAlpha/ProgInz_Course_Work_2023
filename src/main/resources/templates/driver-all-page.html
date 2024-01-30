@@ -71,7 +71,6 @@
         <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
         <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
         <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
-        <a href="/driverRatings/showAll" data-translation="Šofera Novērtējums">Šofera Novērtējums</a>
         
         <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
 	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
@@ -82,7 +81,7 @@
     </div>
     <input type="color" id="colorPicker" class="color-input">
     <input type="file" id="imageUploader" accept="image/*" class="image-input">
-    <button id="removeImageBtn">Remove Image</button>
+    <button id="removeImageBtn" data-translation="Noņemt attēlu">Noņemt attēlu</button>
     
     <!-- Main content -->
     <div class="content">
@@ -133,7 +132,7 @@
         
     </ul>
 </div>
-<button id="downloadButton">Lejuplādēt informāciju</button>
+<button id="downloadButton" data-translation="Lejuplādēt informāciju">Lejuplādēt informāciju</button>
 
 	
     <a class="btn" th:href="@{/driver/addNew}" data-translation="Pievienot Jaunu šoferi">Pievienot Jaunu šoferi</a>
@@ -195,6 +194,8 @@
 		        "Funkcijas": "Functions",
 		        "Apskatīties": "Take a look",
 		        "Pievienot Jaunu šoferi": "Add new driver",
+		        "Noņemt attēlu": "Remove image",
+		        "Lejuplādēt informāciju": "Download information",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -218,7 +219,9 @@
 		        "Buscategory": "Buskategorija",
 		        "Functions": "Funkcijas",
 		        "Take a look": "Apskatīties",
-		        "Add new driver": "Pievienot Jaunu šoferi",		     
+		        "Add new driver": "Pievienot Jaunu šoferi",	
+		        "Remove image": "Noņemt attēlu",	
+		        "Download information": "Lejuplādēt informāciju",		     
 		    };
 		
 		    return latvianTranslations[text] || text;

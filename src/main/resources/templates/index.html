@@ -61,7 +61,7 @@
 
 <body>
 	<header id="header">
-		<nav class="navbar bg-dark navbar-expand-md mb-3" data-bs-theme="dark">
+		<!--<nav class="navbar bg-dark navbar-expand-md mb-3" data-bs-theme="dark">-->
 	<!-- Navigation bar -->
     <div class="nav">
          <a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
@@ -78,9 +78,16 @@
 	    	<img src="https://em-content.zobj.net/source/twitter/348/flag-latvia_1f1f1-1f1fb.png" alt="LV" style="width: 1em; height: 1em;">
 		</button>
     </div>
-		</nav>
+    
+    
+		
+		<!--</nav>-->
 	</header>
-
+	
+	<input type="color" id="colorPicker" class="color-input">
+    <input type="file" id="imageUploader" accept="image/*" class="image-input">
+    <button id="removeImageBtn" data-translation="Noņemt attēlu">Noņemt attēlu</button>
+	
 	<div class="content-container">
 		<div class="content">
 			<h1 data-translation="Sveiks/a!">Sveiks/a!</h1>
@@ -134,6 +141,8 @@
 		        "Pēdējā": "Last",
 		        "Sveiks/a!": "Hello!",
 		        "Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.": "Click on the navigation bar buttons to see the data! The buttons are at the top.",
+		        "Noņemt attēlu": "Remove image",
+		        "Lejuplādēt informāciju": "Download information",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -152,11 +161,62 @@
 		        "Next": "Nākamā",
 		        "Last": "Pēdējā",	
 		        "Hello!": "Sveiks/a!",
-		        "Click on the navigation bar buttons to see the data! The buttons are at the top.": "Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.",	     
+		        "Click on the navigation bar buttons to see the data! The buttons are at the top.": "Lai redzētu datus spiediet uz navigācijas joslas pogām! Pogas atrodas augšpusē.",	
+		        "Remove image": "Noņemt attēlu",	
+		        "Download information": "Lejuplādēt informāciju",	     
 		    };
 		
 		    return latvianTranslations[text] || text;
 		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+            function handleColorChange() {
+                const colorPicker = document.getElementById('colorPicker');
+                const selectedColor = colorPicker.value;
+
+                document.body.style.backgroundColor = selectedColor;
+
+                localStorage.setItem('background-color', selectedColor);
+            }
+
+            function handleImageUpload() {
+                const imageUploader = document.getElementById('imageUploader');
+                const selectedImage = imageUploader.files[0];
+
+                if (selectedImage) {
+                    const imageUrl = URL.createObjectURL(selectedImage);
+                    document.body.style.backgroundImage = `url('${imageUrl}')`;
+
+                    localStorage.setItem('background-image', imageUrl);
+                }
+            }
+
+            function removeImage() {
+                document.body.style.backgroundImage = 'none';
+
+                localStorage.removeItem('background-image');
+            }
+
+            const colorPicker = document.getElementById('colorPicker');
+            colorPicker.addEventListener('input', handleColorChange);
+
+            const imageUploader = document.getElementById('imageUploader');
+            imageUploader.addEventListener('change', handleImageUpload);
+
+            const removeImageBtn = document.getElementById('removeImageBtn');
+            removeImageBtn.addEventListener('click', removeImage);
+
+            const storedColor = localStorage.getItem('background-color');
+            const storedImage = localStorage.getItem('background-image');
+
+            if (storedColor) {
+                document.body.style.backgroundColor = storedColor;
+            }
+
+            if (storedImage) {
+                document.body.style.backgroundImage = `url('${storedImage}')`;
+            }
+        });
 
 	</script>
 

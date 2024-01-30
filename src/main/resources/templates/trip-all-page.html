@@ -70,8 +70,7 @@
         <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
         <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
         <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
-        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
-        <a href="/driverRatings/showAll" data-translation="Šofera Novērtējums">Šofera Novērtējums</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>      
         
         <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
 	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
@@ -82,7 +81,7 @@
     </div>
     <input type="color" id="colorPicker" class="color-input">
     <input type="file" id="imageUploader" accept="image/*" class="image-input">
-    <button id="removeImageBtn">Remove Image</button>
+    <button id="removeImageBtn" data-translation="Noņemt attēlu">Noņemt attēlu</button>
     
     <!-- Main content -->
     <div class="content">
@@ -95,6 +94,7 @@
             <th data-translation="Ilgums Stundas">Ilgums Stundas</th>
             <th data-translation="Šoferis">Šoferis</th>
             <th data-translation="Pilsētas">Pilsētas</th>
+            <th data-translation="Funkcijas">Funkcijas</th>
         </tr>
         
         <tr th:each="Trip : ${Trip}">
@@ -143,7 +143,7 @@
         
     </ul>
 	</div>
-	<button id="downloadButton">Lejuplādēt informāciju</button>
+	<button id="downloadButton" data-translation="Lejuplādēt informāciju">Lejuplādēt informāciju</button>
 
 
     <a class="btn" th:href="@{/trip/addNew}" data-translation="Pievienot Jaunu maršrutu">Pievienot Jaunu maršrutu</a>
@@ -207,6 +207,9 @@
 		        "Pilsētas": "Citties",
 		        "Apskatīties": "Take a look",
 		        "Pievienot Jaunu maršrutu": "Add new trip",
+		        "Funkcijas": "Functions",
+		        "Noņemt attēlu": "Remove image",
+		        "Lejuplādēt informāciju": "Download information",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -230,7 +233,10 @@
 		        "Driver": "Šoferis",
 		        "Citties": "Pilsētas",
 		        "Take a look": "Apskatīties",
-		        "Add new trip": "Pievienot Jaunu maršrutu",		     
+		        "Add new trip": "Pievienot Jaunu maršrutu",	
+		        "Functions": "Funkcijas",	 
+		        "Remove image": "Noņemt attēlu",	
+		        "Download information": "Lejuplādēt informāciju",	     
 		    };
 		
 		    return latvianTranslations[text] || text;

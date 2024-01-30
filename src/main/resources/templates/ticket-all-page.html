@@ -78,8 +78,7 @@
         <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
         <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
         <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
-        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
-        <a href="/driverRatings/showAll" data-translation="Šofera Novērtējums">Šofera Novērtējums</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>      
         
         <button id="translateToEnglishButton" style="display: flex; align-items: center; font-size: 24px;">
 	    	<img src="https://em-content.zobj.net/source/telegram/386/flag-united-kingdom_1f1ec-1f1e7.webp" alt="EN" style="width: 1em; height: 1em;">
@@ -90,7 +89,7 @@
     </div>
     <input type="color" id="colorPicker" class="color-input">
     <input type="file" id="imageUploader" accept="image/*" class="image-input">
-    <button id="removeImageBtn">Remove Image</button>
+    <button id="removeImageBtn" data-translation="Noņemt attēlu">Noņemt attēlu</button>
     
     <!-- Main content -->
     <div class="content">
@@ -104,7 +103,7 @@
             <th data-translation="Vai bērns?">Vai bērns?</th>
             <th data-translation="Kasieris">Kasieris</th>
             <th data-translation="Maršruts">Maršruts</th>
-             <th data-translation="Funkcijas">Funkcijas</th>
+            <th data-translation="Funkcijas">Funkcijas</th>
         </tr>
         
         <tr th:each="Ticket : ${Ticket}">
@@ -146,7 +145,7 @@
         
     </ul>
 	</div>
-	<button id="downloadButton">Lejuplādēt informāciju</button>
+	<button id="downloadButton" data-translation="Lejuplādēt informāciju">Lejuplādēt informāciju</button>
 
     <a class="btn" th:href="@{/ticket/addNew}" data-translation="Pievienot Jaunu biļeti">Pievienot Jaunu biļeti</a>
     
@@ -210,6 +209,9 @@
 		        "Maršruts": "Trip",
 		        "Apskatīties": "Take a look",
 		        "Pievienot Jaunu biļeti": "Add new ticket",
+		        "Funkcijas": "Functions",
+		        "Noņemt attēlu": "Remove image",
+		        "Lejuplādēt informāciju": "Download information",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -234,7 +236,10 @@
 		        "Cashier": "Kasieris",
 		        "Trip": "Maršruts",	
 		        "Take a look": "Apskatīties",	
-		        "Add new ticket": "Pievienot Jaunu biļeti",	     
+		        "Add new ticket": "Pievienot Jaunu biļeti",	   
+		        "Functions": "Funkcijas",	 
+		        "Remove image": "Noņemt attēlu",	
+		        "Download information": "Lejuplādēt informāciju",	 
 		    };
 		
 		    return latvianTranslations[text] || text;
