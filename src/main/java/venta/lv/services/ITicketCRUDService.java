@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import jakarta.validation.Valid;
 import venta.lv.models.Trip;
 import venta.lv.models.users.Cashier;
+import venta.lv.models.users.Driver;
 import venta.lv.models.users.Ticket;
 
 public interface ITicketCRUDService {
@@ -36,6 +37,10 @@ public interface ITicketCRUDService {
 	Page<Ticket> selectAllTicketsByTripId(long idtr, Pageable pageable) throws Exception;
 
 	void deleteTicketById(long id) throws Exception;
+
+	Ticket selectAllTicketsByID(long idt) throws Exception;
+
+	void updateTicket(long idt, @Valid Ticket ticket);
 
 
 

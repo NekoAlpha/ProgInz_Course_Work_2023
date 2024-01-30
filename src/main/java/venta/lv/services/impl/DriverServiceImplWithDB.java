@@ -55,29 +55,22 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 	
 	@Override
 	public void insertNewDriver(Driver driver) {
-		for(Driver driver2 : selectAllDrivers(null)) {
-			if(driver2.getName().equals(driver.getName()) && driver2.getSurname().equals(driver.getSurname()) && driver2.getBuscategory() == driver.getBuscategory()) {
-				return;
-			}
-		}
-		selectAllDrivers(null).and(driver);
-		driverRepo.save(driver);
+	    if (!driverRepo.existsByNameAndSurnameAndBuscategory(driver.getName(), driver.getSurname(), driver.getBuscategory())) {
+	        driverRepo.save(driver);
+	    }
 	}
 	
 	@Override
-	public void updateDriverById(long idd, Driver Driver) {
-		for(Driver driver : selectAllDrivers(null)) {
-			if(driver.getIdd()==idd) {
-				if(driver != null) {
-					driver.setName(Driver.getName());
-					driver.setSurname(Driver.getSurname());
-					driver.setBuscategory(Driver.getBuscategory());
-					
-					selectAllDrivers(null).and(driver);
-					driverRepo.save(driver);
-				}
-			}
-		}
+	public void updateDriverById(long idd, Driver updatedDriver) {
+
+	    driverRepo.findById(idd).ifPresent(driver -> {
+
+	        driver.setName(updatedDriver.getName());
+	        driver.setSurname(updatedDriver.getSurname());
+	        driver.setBuscategory(updatedDriver.getBuscategory());
+
+	        driverRepo.save(driver);
+	    });
 	}
 
 	@Override

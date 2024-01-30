@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MD Izženierija</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav a {
+            color: #fff;
+           	text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            float: left;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+	<header id="header">
+		<a href="/home" data-translation="Sākumlapa">Sākumlapa</a>
+        <a href="/driver/showAll" data-translation="Šoferi">Šoferi</a>
+        <a href="/ticket/showAll" data-translation="Biļetes">Biļetes</a>
+        <a href="/trip/showAll" data-translation="Maršruti">Maršruti</a>
+        <a href="/tripCalendar/showAll" data-translation="Maršruta Kalendārs">Maršruta Kalendārs</a>
+	</header>
+
+	<div class="container">
+		<h2>Update Ticket</h2>
+    <form action="@{/ticket/update/{idt}(idt=${updatedTicket.idt})}" th:object="${updatedTicket}" method="post">
+        <div class="row">
+            <div class="col">
+                <label for="purchaseDateTime">Purchased date time:</label>
+                <input type="time" id="purchaseDateTime" name="purchaseDateTime" th:field="*{purchaseDateTime}"
+                       required/>
+                <span class="error-message" th:if="${#fields.hasErrors('purchaseDateTime')}"
+                      th:errors="*{purchaseDateTime}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" th:field="*{price}" required/>
+                <span class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="isChild">Is Child?:</label>
+                <input type="checkbox" id="isChild" name="isChild" th:field="*{isChild}" />
+                <span class="error-message" th:if="${#fields.hasErrors('isChild')}" th:errors="*{isChild}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="cashier">Cashier:</label>
+                <!-- Assuming Cashier is a string, if it's an object, you might need to display a specific field -->
+                <input type="text" id="cashier" name="cashier" th:field="*{cashier}" required/>
+                <span class="error-message" th:if="${#fields.hasErrors('cashier')}" th:errors="*{cashier}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="trip">Trip nr:</label>
+                <!-- Assuming Trip is a string, if it's an object, you might need to display a specific field -->
+                <input type="text" id="trip" name="trip" th:field="*{trip}" required/>
+                <span th:if="${#fields.hasErrors('trip')}" th:errors="*{trip}"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </form>
+</div>
+    
+    <script>
+
+    </script>
+    
+</body>
+</html>

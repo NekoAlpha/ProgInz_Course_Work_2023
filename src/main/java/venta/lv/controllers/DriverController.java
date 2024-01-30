@@ -29,7 +29,7 @@ public class DriverController {
 	private DriverServiceImplWithDB driverService;
 	
 	@GetMapping("/driver/showAll")
-    public String showAll(org.springframework.ui.Model driver, @PageableDefault(size = 1) Pageable pageable) {
+    public String showAll(org.springframework.ui.Model driver, @PageableDefault(size = 2) Pageable pageable) {
 		Page<Driver> drivers = driverService.selectAllDrivers(pageable);
 		driver.addAttribute("drivers", drivers);
 		//return ResponseEntity.ok(driverService.selectAllDrivers(pageable));

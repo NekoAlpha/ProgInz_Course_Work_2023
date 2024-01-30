@@ -159,4 +159,39 @@ public class TicketController {
 		return "error-page";
 	}
 	
+	@GetMapping("/ticket/update/{idt}")
+	public String updateTicketByID(@PathVariable("idt") long idt, org.springframework.ui.Model ticket) throws Exception {
+	    Ticket updatedTicket = ticketService.selectAllTicketsByID(idt);
+
+	    ticket.addAttribute("updatedTicket", updatedTicket); 
+
+	    return "ticket-update-page"; 
+	}
+	
+	@PostMapping("/ticket/update/{idt}")
+	public String updateTicketByIDPost(@PathVariable("idt") String idt, @ModelAttribute("Ticket") @Valid Ticket ticket, BindingResult result) {
+		System.out.println("Received idd: " + idt);
+		System.out.println("Updated values: " + ticket);
+
+		try {
+		    long ticketId = Long.parseLong(idt);
+		    System.out.println("Parsed driverId: " + ticketId);
+
+		    if (result.hasErrors()) {
+		        System.out.println("Validation errors: " + result.getAllErrors());
+		        return "ticket-update-page";
+		    } else {
+		    	ticketService.updateTicket(ticketId, ticket);
+		        System.out.println("Update successful");
+		        return "redirect:/ticket/showAll";
+		    }
+		} catch (NumberFormatException e) {
+		    System.out.println("NumberFormatException: " + e.getMessage());
+		    return "error-page";
+		} catch (Exception e) {
+		    System.out.println("Exception: " + e.getMessage());
+		    return "error-page";
+		}
+	}
+	
 }

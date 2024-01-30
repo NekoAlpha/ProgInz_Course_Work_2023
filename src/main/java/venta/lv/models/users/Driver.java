@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,7 +62,7 @@ public class Driver extends Person{
 	@Column(name = "Buscategory")
 	private Buscategory buscategory;
 	
-	@OneToMany(mappedBy = "driver")
+	@OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Trip> trips = new ArrayList<>();
 
 	public Driver(

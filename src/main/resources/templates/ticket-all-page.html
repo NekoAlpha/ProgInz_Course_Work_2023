@@ -115,7 +115,7 @@
             <td th:text="${Ticket.trip.idtr}"></td>       
             <td>
                 <a th:href="@{/ticket/showOne/{idt}(idt=${Ticket.idt})}" data-translation="Apskatīties">Apskatities</a>
-                <!--<a th:href="@{/ticket/update/{idt}(idt=${Ticket.idt})}">Atjaunot</a>-->
+                <!--<a th:href="@{/ticket/update/{idt}(idt=${Ticket.idt})}" data-translation="Atjaunot">Atjaunot</a>-->
             </td>
             
            </tr>
@@ -147,7 +147,7 @@
 	</div>
 	<button id="downloadButton" data-translation="Lejuplādēt informāciju">Lejuplādēt informāciju</button>
 
-    <a class="btn" th:href="@{/ticket/addNew}" data-translation="Pievienot Jaunu biļeti">Pievienot Jaunu biļeti</a>
+    <!--<a class="btn" th:href="@{/ticket/addNew}" data-translation="Pievienot Jaunu biļeti">Pievienot Jaunu biļeti</a>-->
     
    </div>
         
@@ -212,6 +212,7 @@
 		        "Funkcijas": "Functions",
 		        "Noņemt attēlu": "Remove image",
 		        "Lejuplādēt informāciju": "Download information",
+		        "Apskatīties": "Take a look",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -239,7 +240,8 @@
 		        "Add new ticket": "Pievienot Jaunu biļeti",	   
 		        "Functions": "Funkcijas",	 
 		        "Remove image": "Noņemt attēlu",	
-		        "Download information": "Lejuplādēt informāciju",	 
+		        "Download information": "Lejuplādēt informāciju",
+		        "Tak a look": "Apskatīties",	 
 		    };
 		
 		    return latvianTranslations[text] || text;

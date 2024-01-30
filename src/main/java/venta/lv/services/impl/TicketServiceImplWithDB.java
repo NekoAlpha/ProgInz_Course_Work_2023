@@ -155,6 +155,30 @@ public class TicketServiceImplWithDB implements ITicketCRUDService{
 		}
 	}
 
+	@Override
+	public Ticket selectAllTicketsByID(long idt) throws Exception {
+		if(ticketRepo.existsById(idt))
+		{
+			return ticketRepo.findById(idt).get();
+		}
+		else
+		{
+			throw new Exception("Wrong id");
+		}
+	}
+
+	@Override
+	public void updateTicket(long idt, @Valid Ticket updatedTicket) {
+		ticketRepo.findById(idt).ifPresent(ticket -> {
+			ticket.setCashier(updatedTicket.getCashier());
+			ticket.setChild(updatedTicket.isChild());
+			ticket.setPrice(updatedTicket.getPrice());
+			ticket.setPurchaseDateTime(updatedTicket.getPurchaseDateTime());
+			ticket.setTrip(updatedTicket.getTrip());
+			ticketRepo.save(ticket);
+		});
+	}
+
 	
 	
 }
