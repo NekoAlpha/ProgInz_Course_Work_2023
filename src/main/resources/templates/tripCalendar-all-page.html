@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <title>MD Izženierija</title>
     <style>
         body {
@@ -105,7 +107,7 @@
             <td th:text="${tripCalendar.Trip.idtr}"></td>
             <td>
 				<!--<p th:text="${tripCalendar.idcal}"></p>-->
-                <!--<a th:href="@{/driver/showOne/{idd}(idd=${driver.idd})}" data-translation="Apskatīties">Apskatīties</a>-->
+               <!--<a th:href="@{/driver/showOne/{idd}(idd=${driver.idd})}" data-translation="Apskatīties">Apskatīties</a>-->
                <a th:if="${tripCalendar.idcal != null}" th:href="@{/tripCalendar/update/{idcal}(idcal=${tripCalendar.idcal})}" data-translation="Atjaunot">Atjaunot</a>
 
 
@@ -237,47 +239,35 @@
 		}
 		
 		 document.addEventListener("DOMContentLoaded", function () {
-		    var downloadButton = document.getElementById("downloadButton");
-		    if (downloadButton) {
-		        downloadButton.addEventListener("click", function () {
-		            downloadTableData();
-		        });
-		    }
-		});
+	        var downloadButton = document.getElementById("downloadButton");
+	        if (downloadButton) {
+	            downloadButton.addEventListener("click", function () {
+	                downloadTableAsXLSX();
+	            });
+	        }
+	    });
+	
+	    function downloadTableAsXLSX() {
+		    var table = document.querySelector("table");
+		    var rows = table.querySelectorAll("tr");
+		    var data = [];
 		
-		function downloadTableData() {
-		    
-		    var tableRows = document.querySelectorAll("table tr");
-		    var pageData = Array.from(tableRows).map((row, rowIndex) => {
-		        var rowData = Array.from(row.querySelectorAll("td:not(:last-child)")).map(cell => cell.innerText);
-		        
-		       
-		        if (rowIndex === 0) {
-		            var headerRow = Array.from(row.querySelectorAll("th:not(:last-child)")).map(cell => cell.innerText);
-		            return headerRow.join('\t');
+		    for (var i = 0; i < rows.length; i++) {
+		        var row = [], cols = rows[i].querySelectorAll("td, th");
+		
+		        for (var j = 0; j < cols.length - 1; j++) { 
+		            row.push(cols[j].innerText);
 		        }
 		
-		        return rowData.join('\t');
-		    }).join('\n');
+		        data.push(row);
+		    }
 		
-		    
-		    var blob = new Blob([pageData], { type: "text/plain" });
+		    var ws = XLSX.utils.aoa_to_sheet(data);
+		    var wb = XLSX.utils.book_new();
+		    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 		
-		    
-		    var link = document.createElement("a");
-		    link.href = URL.createObjectURL(blob);
-		
-		   
-		    link.download = "page_data.txt";
-		
-		    
-		    document.body.appendChild(link);
-		
-		    
-		    link.click();
-		
-		    
-		    document.body.removeChild(link);
+		    var filename = "table_data.xlsx";
+		    XLSX.writeFile(wb, filename);
 		}
 		
 		document.addEventListener("DOMContentLoaded", function() {
