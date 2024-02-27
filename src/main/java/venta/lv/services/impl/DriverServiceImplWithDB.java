@@ -1,14 +1,25 @@
 package venta.lv.services.impl;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -107,47 +118,129 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 	}
 	
 	@Override
-	public Workbook DriverToExelFile() {
-		return null;
-//		List<Driver> driver = retrieveActiveDriver();
-//		
-//		Workbook workbook = new XSSFWorkbook();
-//		
-//		Sheet sheet = workbook.createSheet("Drivers");
-//		
-//		String[] headers = {"Vārds", "Uzvārds", "Buskategorija"};
-//		
-//		Row headerRow = sheet.createRow(0);
-//		for (int i = 0; i < headers.length; i++) {
-//			headerRow.createCell(i).setCellValue(headers[i]);
-//		}
-//		
-//		int rowNumber = 1;
-//		
-//		for (Driver drivers : driver) {
-//			Row dataRow = sheet.createRow(rowNumber++);
-//			dataRow.createCell(0).setCellValue(drivers.getName());
-//			dataRow.createCell(1).setCellValue(drivers.getSurname());
-//			dataRow.createCell(2).setCellValue(drivers.getBuscategory());
-//		}
-//		
-//		for (int i = 0; i < 3; i ++) {
-//			sheet.setColumnWidth(i, 8000);
-//		}
-//		return workbook;
-//		
-//		
-//		
-	}
-
-	public List<Driver> retrieveActiveDrivers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void importDriversFromExcel(InputStream inputStream) {
-		// TODO Auto-generated method stub
+	public Workbook ExportDriversToExelFile(Pageable pageable) {
 		
+		Page<Driver> driver = selectAllDrivers(pageable);
+		
+		Workbook workbook = new XSSFWorkbook();
+		
+		Sheet sheet = workbook.createSheet("Drivers");
+		
+		Row headRow = sheet.createRow(0);
+		
+		String[] headers = {"Id", "Vārds", "Uzvārds", "Buskategorija"};
+		
+		Row headerRow = sheet.createRow(0);
+		for (int i = 0; i < headers.length; i++) {
+			headerRow.createCell(i).setCellValue(headers[i]);
+		}
+		
+		int rowNumber = 1;
+		
+		for (int i = 0; i < headers.length; i++) {
+            headRow.createCell(i).setCellValue(headers[i]);
+        }
+		
+		for (Driver drivers : driver) {
+			Row dataRow = sheet.createRow(rowNumber++);
+			dataRow.createCell(0).setCellValue(drivers.getName());
+			dataRow.createCell(1).setCellValue(drivers.getSurname());
+			dataRow.createCell(3).setCellValue(drivers.getBuscategory().toString());
+		}
+		
+		for (int i = 0; i < 3; i ++) {
+			sheet.setColumnWidth(i, 8000);
+		}
+		return workbook;
+
 	}
 	
+	 @Override
+	    public Driver retrieveDriversByIdd(Long idd) throws Exception {
+	        if (driverRepo.existsByIdd(idd)){
+	            return driverRepo.findByIdd(idd);
+	        } else {
+	            throw new Exception("Wrong Idd");
+	        }
+	    }
+
+	    @Override
+	    public void importDriversFromExcel(InputStream excelFile) throws Exception {
+	        Workbook workbook = new XSSFWorkbook(excelFile);
+	        Sheet sheet = workbook.getSheetAt(0);
+	        Iterator<Row> rowIterator = sheet.iterator();
+	        int currentDriverIndex = 2;
+
+	        List<Driver> drivers = (List<Driver>) driverRepo.findAll();
+
+	        while (rowIterator.hasNext()) {
+	            Row row = rowIterator.next();
+
+	            // Skip the header row
+	            if (row.getRowNum() == 0) {
+	                continue;
+	            }
+
+	            Long idd = (long) row.getCell(0).getNumericCellValue();
+	            String name = row.getCell(1).getStringCellValue();
+	            String surname = row.getCell(2).getStringCellValue();
+	           // Buscategory buscategory = row.getCell(3).getRichStringCellValue().;	          
+	            
+	            if (!driverRepo.existsByIdd(idd)) {
+	                Driver currentDriver = drivers.get(currentDriverIndex);
+	                createNewDriver(name, surname);
+	                currentDriverIndex++;
+
+
+	            }
+	        }
+	    }
+
+	    @Override
+	    public Driver createNewDriver(String name, String surname ) {
+	        return driverRepo.save(new Driver(name, surname, null));
+	    }
+	    
+	    @Override
+		public XWPFDocument exportDriversToWord(Pageable pageable) {
+	    	Page<Driver> drivers = selectAllDrivers(pageable);
+
+	        XWPFDocument document = new XWPFDocument();
+	        XWPFParagraph paragraph = document.createParagraph();
+
+	        XWPFRun run = paragraph.createRun();
+	        run.setBold(true);
+	        run.setText("Drivers");
+
+	        XWPFTable table = document.createTable(drivers.getSize() + 1, 6);
+
+	        String[] headers = {"Name", "Surname", "Buscategory"};
+	        XWPFTableRow headerRow = table.getRow(0);
+	        for (int i = 0; i < headers.length; i++) {
+	            XWPFTableCell headerCell = headerRow.getCell(i);
+	            headerCell.setText(headers[i]);
+	        }
+
+	        int rowNum = 1;
+	        for (Driver driver : drivers) {
+	            XWPFTableRow dataRow = table.getRow(rowNum++);
+	            dataRow.getCell(0).setText(driver.getName());
+	            dataRow.getCell(1).setText(driver.getSurname());
+	            dataRow.getCell(2).setText(driver.getBuscategory().toString());
+
+	        }
+
+	        for (int i = 0; i < 6; i++) {
+	            CTTblWidth cellWidth = table.getRow(0).getCell(i).getCTTc().addNewTcPr().addNewTcW();
+	            cellWidth.setType(STTblWidth.DXA);
+	            cellWidth.setW(BigInteger.valueOf(3000));
+	        }
+
+	        return document;
+	    }
+	
+
+	    
+	    
 }
+

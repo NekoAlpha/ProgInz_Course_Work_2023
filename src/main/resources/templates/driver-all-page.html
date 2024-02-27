@@ -135,9 +135,19 @@
     </ul>
 </div>
 <a href="/driver/export" data-translation=" Eksportēt šoferus programmā Excel">Eksportēt šoferus programmā Excel</a>
+<a href="/driver/export/word" data-translation=" Eksportēt šoferus programmā Word">Eksportēt šoferus programmā Word</a>
 	
     <a class="btn" th:href="@{/driver/addNew}" data-translation="Pievienot Jaunu šoferi">Pievienot Jaunu šoferi</a>
 </div>
+
+<br>
+<h4>Upload Excel File</h4>
+
+<form action="/driver/import" method="POST" enctype="multipart/form-data">
+	<input type="file" name="file" accept=".xlsx, .xls" required>
+	<br>
+	<button type="submit">Upload</button>
+</form>
 
 
     </div>

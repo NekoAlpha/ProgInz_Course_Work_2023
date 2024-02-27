@@ -95,6 +95,7 @@ public class SecurityConfig {
 		.requestMatchers("/driver/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/ticket/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/driver/export").permitAll()
+		.requestMatchers("/driver/export/word").permitAll()
 		//.requestMatchers("/ticket-one-page").hasAnyAuthority("ADMIN")
 		//.requestMatchers("/trip-one-page").hasAnyAuthority("ADMIN")
 		//.requestMatchers("/driver-one-page").hasAnyAuthority("ADMIN")
