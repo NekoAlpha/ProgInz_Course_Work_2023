@@ -15,5 +15,9 @@ public interface IDriverRepo extends CrudRepository<Driver, Long>{
 
 	boolean existsByNameAndSurnameAndBuscategory(String name, String surname, Buscategory buscategory);
 
+	boolean existsByIdd(Long idd);
+	
+	Driver findByIdd(Long idd);
+
 
 }

@@ -94,6 +94,7 @@ public class SecurityConfig {
 		.requestMatchers("/tripCalendar/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/driver/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/ticket/update/**").hasAnyAuthority("ADMIN")
+		.requestMatchers("/driver/export").permitAll()
 		//.requestMatchers("/ticket-one-page").hasAnyAuthority("ADMIN")
 		//.requestMatchers("/trip-one-page").hasAnyAuthority("ADMIN")
 		//.requestMatchers("/driver-one-page").hasAnyAuthority("ADMIN")

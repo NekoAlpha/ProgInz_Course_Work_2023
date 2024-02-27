@@ -1,9 +1,14 @@
 package venta.lv.services.impl;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -101,7 +106,48 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 	    return (int) Math.ceil((double) totalDrivers / pageSize);
 	}
 	
-	
-	
+	@Override
+	public Workbook DriverToExelFile() {
+		return null;
+//		List<Driver> driver = retrieveActiveDriver();
+//		
+//		Workbook workbook = new XSSFWorkbook();
+//		
+//		Sheet sheet = workbook.createSheet("Drivers");
+//		
+//		String[] headers = {"Vārds", "Uzvārds", "Buskategorija"};
+//		
+//		Row headerRow = sheet.createRow(0);
+//		for (int i = 0; i < headers.length; i++) {
+//			headerRow.createCell(i).setCellValue(headers[i]);
+//		}
+//		
+//		int rowNumber = 1;
+//		
+//		for (Driver drivers : driver) {
+//			Row dataRow = sheet.createRow(rowNumber++);
+//			dataRow.createCell(0).setCellValue(drivers.getName());
+//			dataRow.createCell(1).setCellValue(drivers.getSurname());
+//			dataRow.createCell(2).setCellValue(drivers.getBuscategory());
+//		}
+//		
+//		for (int i = 0; i < 3; i ++) {
+//			sheet.setColumnWidth(i, 8000);
+//		}
+//		return workbook;
+//		
+//		
+//		
+	}
+
+	public List<Driver> retrieveActiveDrivers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void importDriversFromExcel(InputStream inputStream) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

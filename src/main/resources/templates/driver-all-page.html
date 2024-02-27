@@ -134,8 +134,7 @@
         
     </ul>
 </div>
-<button id="downloadButton" data-translation="Lejuplādēt informāciju">Lejuplādēt informāciju</button>
-
+<a href="/driver/export" data-translation=" Eksportēt šoferus programmā Excel">Eksportēt šoferus programmā Excel</a>
 	
     <a class="btn" th:href="@{/driver/addNew}" data-translation="Pievienot Jaunu šoferi">Pievienot Jaunu šoferi</a>
 </div>
@@ -197,7 +196,7 @@
 		        "Apskatīties": "Take a look",
 		        "Pievienot Jaunu šoferi": "Add new driver",
 		        "Noņemt attēlu": "Remove image",
-		        "Lejuplādēt informāciju": "Download information",
+		        "Eksportēt šoferus programmā Excel": "Export Drivers to Excel",
 		    };
 		
 		    return englishTranslations[text] || text;
@@ -223,42 +222,10 @@
 		        "Take a look": "Apskatīties",
 		        "Add new driver": "Pievienot Jaunu šoferi",	
 		        "Remove image": "Noņemt attēlu",	
-		        "Download information": "Lejuplādēt informāciju",		     
+		        "Export Drivers to Excel": "Eksportēt šoferus programmā Excel",		     
 		    };
 		
 		    return latvianTranslations[text] || text;
-		}
-		
-		document.addEventListener("DOMContentLoaded", function () {
-	        var downloadButton = document.getElementById("downloadButton");
-	        if (downloadButton) {
-	            downloadButton.addEventListener("click", function () {
-	                downloadTableAsXLSX();
-	            });
-	        }
-	    });
-	
-	    function downloadTableAsXLSX() {
-		    var table = document.querySelector("table");
-		    var rows = table.querySelectorAll("tr");
-		    var data = [];
-		
-		    for (var i = 0; i < rows.length; i++) {
-		        var row = [], cols = rows[i].querySelectorAll("td, th");
-		
-		        for (var j = 0; j < cols.length - 1; j++) { 
-		            row.push(cols[j].innerText);
-		        }
-		
-		        data.push(row);
-		    }
-		
-		    var ws = XLSX.utils.aoa_to_sheet(data);
-		    var wb = XLSX.utils.book_new();
-		    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-		
-		    var filename = "table_data.xlsx";
-		    XLSX.writeFile(wb, filename);
 		}
 			
 		 document.addEventListener("DOMContentLoaded", function() {

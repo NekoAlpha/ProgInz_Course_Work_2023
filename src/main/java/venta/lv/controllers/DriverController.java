@@ -1,13 +1,20 @@
 package venta.lv.controllers;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +24,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.format.DateTimeFormatter;
+import org.springframework.http.HttpStatus;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import venta.lv.models.users.Driver;
 import venta.lv.services.impl.DriverServiceImplWithDB;
@@ -133,5 +147,65 @@ public class DriverController {
 		    return "error-page";
 		}
 	}
+	
+	 @GetMapping("/driver/export")
+	    public void DriverToExelFile(HttpServletResponse response, Pageable pageable) throws IOException {
+	        Page<Driver> driver = driverService.selectAllDrivers(pageable);
+
+	        // Create a new workbook
+	        Workbook workbook = new XSSFWorkbook();
+
+	        // Create a sheet
+	        Sheet sheet = workbook.createSheet("Drivers");
+
+	        // Create a header row
+	        Row headerRow = sheet.createRow(0);
+	        headerRow.createCell(0).setCellValue("Id");
+	        headerRow.createCell(1).setCellValue("Name");
+	        headerRow.createCell(2).setCellValue("Surname");
+	        headerRow.createCell(3).setCellValue("Buscategory");
+
+	        // Create data rows
+	        //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        int rowNum = 1;
+	        for (Driver drivers : driver) {
+	            Row dataRow = sheet.createRow(rowNum++);
+	            dataRow.createCell(0).setCellValue(drivers.getIdd());
+	            dataRow.createCell(1).setCellValue(drivers.getName());
+	            dataRow.createCell(2).setCellValue(drivers.getSurname());
+	            dataRow.createCell(3).setCellValue(drivers.getBuscategory().toString());	           
+	        }
+
+	        // Set column widths (optional)
+	        sheet.setColumnWidth(0, 8000);
+	        sheet.setColumnWidth(1, 8000);
+	        sheet.setColumnWidth(2, 8000);	
+	        sheet.setColumnWidth(3, 8000);
+
+	        // Set the response headers
+	        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	        response.setHeader("Content-Disposition", "attachment; filename=drivers.xlsx");
+
+	        // Write the workbook to the response output stream
+	        workbook.write(response.getOutputStream());
+	        workbook.close();
+	    }
+	 
+//	 @PostMapping("/driver/import")
+//		public ResponseEntity<String> importStudents(@RequestParam("file") MultipartFile file) throws IOException {
+//			if (file.isEmpty()) {
+//				return ResponseEntity.badRequest().body("Please select an Excel file to upload.");
+//			}
+//
+//			try {
+//				driverService.importDriversFromExcel(file.getInputStream());
+//				HttpHeaders headers = new HttpHeaders();
+//				headers.add("Location", "/drivers/showAll");
+//
+//				return new ResponseEntity<>(headers, HttpStatus.FOUND);
+//			} catch (Exception e) {
+//				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during import.");
+//			}
+//		}
 	
 }
