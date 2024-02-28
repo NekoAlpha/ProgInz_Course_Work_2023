@@ -188,7 +188,7 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 	           // Buscategory buscategory = row.getCell(3).getRichStringCellValue().;	          
 	            
 	            if (!driverRepo.existsByIdd(idd)) {
-	                Driver currentDriver = drivers.get(currentDriverIndex);
+	                drivers.get(currentDriverIndex);
 	                createNewDriver(name, surname);
 	                currentDriverIndex++;
 
@@ -231,7 +231,7 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 
 	        }
 
-	        for (int i = 0; i < 6; i++) {
+	        for (int i = 0; i < 4; i++) {
 	            CTTblWidth cellWidth = table.getRow(0).getCell(i).getCTTc().addNewTcPr().addNewTcW();
 	            cellWidth.setType(STTblWidth.DXA);
 	            cellWidth.setW(BigInteger.valueOf(3000));
@@ -253,21 +253,21 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 
 	                List<XWPFTableCell> cells = row.getTableCells();
 
-	                if (cells.size() >= 4) {
+	                if (cells.size() >= 3) {
 	                	Long idd = (long) ((Cell) row.getCell(0)).getNumericCellValue();
 	                	String name = cells.get(1).getText();
 	                    String surname = cells.get(2).getText();
-	                    String buscategory = cells.get(3).getText();
+	                    cells.get(3).getText();
 
 	                    if (!driverRepo.existsByIdd(idd)) {
-	                        Driver currentDriver = drivers.get(currentDriverIndex);
+	                        drivers.get(currentDriverIndex);
 	                        createNewDriver(name, surname);
 	                        currentDriverIndex++;
 	                    }
 	                }
 	            }
 	        }
-	
+	        driverRepo.saveAll(drivers);
 	    }
 	    
 	    
