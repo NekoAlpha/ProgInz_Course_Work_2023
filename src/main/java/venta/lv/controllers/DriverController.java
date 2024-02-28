@@ -151,8 +151,8 @@ public class DriverController {
 		}
 	}
 	
-	 	@GetMapping("/driver/export")
-	    public void DriverToExelFile(HttpServletResponse response, Pageable pageable) throws IOException {
+	@GetMapping("/driver/export")
+	public void DriverToExelFile(HttpServletResponse response, Pageable pageable) throws IOException {
 	        Page<Driver> driver = driverService.selectAllDrivers(pageable);
 
 	        // Create a new workbook
@@ -194,25 +194,25 @@ public class DriverController {
 	        workbook.close();
 	    }
 	 
-	 	@PostMapping("/driver/import")
-		public ResponseEntity<String> importDrivers(@RequestParam("file") MultipartFile file) throws IOException {
-			if (file.isEmpty()) {
-				return ResponseEntity.badRequest().body("Please select an Excel file to upload.");
-			}
+	@PostMapping("/driver/import")
+	public ResponseEntity<String> importDrivers(@RequestParam("file") MultipartFile file) throws IOException {
+	    if (file.isEmpty()) {
+	        return ResponseEntity.badRequest().body("Please select an Excel file to upload.");
+	    }
 
-			try {
-				driverService.importDriversFromExcel(file.getInputStream());
-				HttpHeaders headers = new HttpHeaders();
-				headers.add("Location", "/driver/showAll");
+	    try {
+	        driverService.importDriversFromExcel(file.getInputStream());
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.add("Location", "/driver/showAll");
 
-				return new ResponseEntity<>(headers, HttpStatus.FOUND);
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during import.");
-			}
-		}
+	        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during import.");
+	    }
+	}
 	 	
-	 	@GetMapping("driver/export/word")
-	    public ResponseEntity<InputStreamResource> exportDriversToWord(Pageable pageable) throws IOException {
+	@GetMapping("driver/export/word")
+	public ResponseEntity<InputStreamResource> exportDriversToWord(Pageable pageable) throws IOException {
 	        XWPFDocument document = driverService.exportDriversToWord(pageable);
 
 	        File tempFile = File.createTempFile("drivers", ".docx");
@@ -230,5 +230,24 @@ public class DriverController {
 	                .contentType(org.springframework.http.MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
 	                .body(new InputStreamResource(new FileInputStream(tempFile)));
 	    }
+	 	
+	@PostMapping("/driver/import/docx")
+	public ResponseEntity<String> importDriversFromWordDoc(@RequestParam("file") MultipartFile file) throws IOException {
+	        if (file.isEmpty()) {
+	            return ResponseEntity.badRequest().body("Please select a DOCX file to upload.");
+	        }
+
+	        try {
+	            driverService.importDriversFromWord(file.getInputStream());
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.add("Location", "/driver/showAll");
+
+	            return new ResponseEntity<>(headers, HttpStatus.FOUND);
+	        } catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during import.");
+			}
+			
+	    }
+	 	
 	
 }

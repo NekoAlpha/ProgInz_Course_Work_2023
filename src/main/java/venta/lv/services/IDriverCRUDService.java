@@ -50,5 +50,7 @@ public interface IDriverCRUDService {
 	Driver createNewDriver(String name, String surname);
 
 	XWPFDocument exportDriversToWord(Pageable pageable);
+
+	void importDriversFromWord(InputStream inputStream) throws IOException;
 	
 }

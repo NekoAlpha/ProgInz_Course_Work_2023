@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -238,8 +239,36 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 
 	        return document;
 	    }
-	
+	    
+	    @Override
+		public void importDriversFromWord(InputStream docxFile) throws IOException {
+	    	XWPFDocument document = new XWPFDocument(docxFile);
+	        List<Driver> drivers = (List<Driver>) driverRepo.findAll();
+	        int currentDriverIndex = 2;
 
+	        for (XWPFTable table : document.getTables()) {
+	            // Iterate through the rows, starting from the second row
+	            for (int rowIndex = 1; rowIndex < table.getRows().size(); rowIndex++) {
+	                XWPFTableRow row = table.getRows().get(rowIndex);
+
+	                List<XWPFTableCell> cells = row.getTableCells();
+
+	                if (cells.size() >= 4) {
+	                	Long idd = (long) ((Cell) row.getCell(0)).getNumericCellValue();
+	                	String name = cells.get(1).getText();
+	                    String surname = cells.get(2).getText();
+	                    String buscategory = cells.get(3).getText();
+
+	                    if (!driverRepo.existsByIdd(idd)) {
+	                        Driver currentDriver = drivers.get(currentDriverIndex);
+	                        createNewDriver(name, surname);
+	                        currentDriverIndex++;
+	                    }
+	                }
+	            }
+	        }
+	
+	    }
 	    
 	    
 }
