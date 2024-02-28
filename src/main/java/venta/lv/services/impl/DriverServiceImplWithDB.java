@@ -165,38 +165,35 @@ public class DriverServiceImplWithDB implements IDriverCRUDService{
 	        }
 	    }
 
-	    @Override
-	    public void importDriversFromExcel(InputStream excelFile) throws Exception {
-	        Workbook workbook = new XSSFWorkbook(excelFile);
-	        Sheet sheet = workbook.getSheetAt(0);
-	        Iterator<Row> rowIterator = sheet.iterator();
-	        int currentDriverIndex = 2;
+	 @Override
+	 public void importDriversFromExcel(InputStream excelFile) throws Exception {
+	     Workbook workbook = new XSSFWorkbook(excelFile);
+	     Sheet sheet = workbook.getSheetAt(0);
+	     Iterator<Row> rowIterator = sheet.iterator();
+	     
+	     List<Driver> drivers = (List<Driver>) driverRepo.findAll();
 
-	        List<Driver> drivers = (List<Driver>) driverRepo.findAll();
+	     while (rowIterator.hasNext()) {
+	         Row row = rowIterator.next();
 
-	        while (rowIterator.hasNext()) {
-	            Row row = rowIterator.next();
+	         // Skip the header row
+	         if (row.getRowNum() == 0) {
+	             continue;
+	         }
 
-	            // Skip the header row
-	            if (row.getRowNum() == 0) {
-	                continue;
-	            }
+	         Long idd = (long) row.getCell(0).getNumericCellValue();
+	         String name = row.getCell(1).getStringCellValue();
+	         String surname = row.getCell(2).getStringCellValue();
+	         // String busCategory = row.getCell(3).getStringCellValue(); 
 
-	            Long idd = (long) row.getCell(0).getNumericCellValue();
-	            String name = row.getCell(1).getStringCellValue();
-	            String surname = row.getCell(2).getStringCellValue();
-	           // Buscategory buscategory = row.getCell(3).getRichStringCellValue().;	          
-	            
-	            if (!driverRepo.existsByIdd(idd)) {
-	                drivers.get(currentDriverIndex);
-	                createNewDriver(name, surname);
-	                currentDriverIndex++;
-
-
-	            }
-	        }
-	    }
-
+	         if (!driverRepo.existsByIdd(idd)) {
+	             drivers.get(0);
+	             Driver newDriver = new Driver(name, surname, null);
+	             driverRepo.save(newDriver);
+	 	    }
+	     }
+	 }
+	    
 	    @Override
 	    public Driver createNewDriver(String name, String surname ) {
 	        return driverRepo.save(new Driver(name, surname, null));
